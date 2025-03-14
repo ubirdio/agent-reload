@@ -3,12 +3,18 @@
 resources:
   cloud: aws
   instance_type: c5.metal # Specifies the bare-metal instance type
-  # Optional: Uncomment the following to request a spot instance
-  # spot: true
-  # Optional: Specify your SSH key name if required
-  # key_name: your-aws-key-name
 
 workdir: .
 
+setup: |
+  # Install uv.
+  echo "Installing uv..."
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+
+  echo "Setting up firecracker deps..."
+  ./step-0-get-linux-kernel.sh
+  ./step-1-get-fc-bin.sh
+
 run: |
-  # none
+  # None.
+  # This exists just so you can run `sky exec my-cluster` and have the code sync'd.
