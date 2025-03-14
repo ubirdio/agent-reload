@@ -2,6 +2,20 @@ TAP_DEV="tap0"
 TAP_IP="172.16.0.1"
 MASK_SHORT="/30"
 
+# Create an ssh key for the rootfs
+rm ubuntu-24.04.id_rsa ubuntu-24.04.ext4 || true
+sudo rm -rf squashfs-root || true
+
+unsquashfs ubuntu-24.04.squashfs.upstream
+ssh-keygen -f id_rsa -N ""
+cp -v id_rsa.pub squashfs-root/root/.ssh/authorized_keys
+mv -v id_rsa ./ubuntu-24.04.id_rsa
+cp ai_dev.py example.py step-5-in-fc-setup.sh squashfs-root/root/
+# create ext4 filesystem image
+sudo chown -R root:root squashfs-root
+truncate -s 800M ubuntu-24.04.ext4
+sudo mkfs.ext4 -d squashfs-root -F ubuntu-24.04.ext4
+
 # Setup network interface
 sudo ip link del "$TAP_DEV" 2> /dev/null || true
 sudo ip tuntap add dev "$TAP_DEV" mode tap

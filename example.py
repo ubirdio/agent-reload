@@ -3,14 +3,18 @@
 # "requests"
 # ]
 # ///
-import requests
+import time
+import ai_dev
 
-x = 0
+@ai_dev.in_ai_dev()
+def inner(recordings, i):
+    recordings.append(f"{i} - {time.time()} - original")
+    print(f"Here's the record: {recordings}")
 
-TAP_IP="172.16.0.1"
+def example():
+    recordings = []
+    for i in range(10):
+        inner(recordings, i)
 
-for i in range(10):
-    # Wait for input so we can fork the vm
-    input(f"Press Enter to continue {i}...")
-    # Load the code to execute.
-    exec(requests.get(f"http://{TAP_IP}:8000").json()["code"], globals(), locals())
+if __name__ == "__main__":
+    example()
