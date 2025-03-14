@@ -1,0 +1,14 @@
+# sky.yaml - SkyPilot configuration for an AWS c5.metal instance
+
+resources:
+  cloud: aws
+  instance_type: c5.metal # Specifies the bare-metal instance type
+  # Optional: Uncomment the following to request a spot instance
+  # spot: true
+  # Optional: Specify your SSH key name if required
+  # key_name: your-aws-key-name
+
+workdir: .
+
+run: |
+  # none
