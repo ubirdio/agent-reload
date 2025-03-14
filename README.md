@@ -1,3 +1,5 @@
+Demo recording: https://screen.studio/share/FleAp8M9
+
 # Demo using firecracker to hotreload code
 
 If you could pause a program, snapshot, and restart, at any point, you could have an execution environment for AI agents to rapidly iterate on code.
